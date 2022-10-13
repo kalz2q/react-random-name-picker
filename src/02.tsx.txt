@@ -1,27 +1,25 @@
-import React from 'react';
-import './App.css';
-const { useState } = React;
+class RandomPicker extends React.PureComponent {
+  constructor() {
+    super();
 
-function App() {
+    this.state = {
+      isRunning: false,
+      currentChoice: ''
+    };
 
-  const [currentState, setCurrnetState] = useState<{
-    isRunning: boolean;
-    currentChoice: string;
-  }>({ isRunning: true, currentChoice: "" })
+    this.interval = null;
+    this.intervalDuration = 25;
+    this.duration = 1000;
 
-  const interval = null;
-  const intervalDuration = 25;
-  const duration = 1000;
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.reset = this.reset.bind(this);
+    this.pickChoice = this.pickChoice.bind(this);
+    this.setChoice = this.setChoice.bind(this);
+  }
 
-  // this.start = this.start.bind(this);
-  // this.stop = this.stop.bind(this);
-  // this.reset = this.reset.bind(this);
-  // this.pickChoice = this.pickChoice.bind(this);
-  // this.setChoice = this.setChoice.bind(this);
-  // }
-
-  const start = () => {
-    clearInterval(interval);
+  start() {
+    clearInterval(this.interval);
     this.interval = setInterval(this.setChoice, this.intervalDuration);
     this.setState({ isRunning: true });
     setTimeout(() => {
@@ -31,60 +29,60 @@ function App() {
     }, this.duration);
   }
 
-  const stop = () => {
+  stop() {
     clearInterval(this.interval);
     this.setState({ isRunning: false });
   }
 
-  const reset = () => {
+  reset() {
     clearInterval(this.interval);
     this.setState({ isRunning: false, currentChoice: '' });
   }
 
-  const pickChoice = () => {
+  pickChoice() {
     const { items } = this.props;
     const choice = items[Math.floor(Math.random() * items.length)];
     return choice;
   }
 
-  const setChoice = () => {
+  setChoice() {
     this.setState({ currentChoice: this.pickChoice() })
   }
 
-  // render() {
-  const { isRunning, currentChoice } = this.state;
+  render() {
+    const { isRunning, currentChoice } = this.state;
 
-  return (
-    <div className="RandomPicker">
-      <RandomPickerChoice choice={currentChoice} />
-      <RandomPickerControls
-        isRunning={isRunning}
-        hasChoice={currentChoice.trim().length > 0}
-        start={this.start}
-        stop={this.stop}
-        reset={this.reset}
-      />
-    </div>
-  );
+    return (
+      <div className="RandomPicker">
+        <RandomPickerChoice choice={currentChoice} />
+        <RandomPickerControls
+          isRunning={isRunning}
+          hasChoice={currentChoice.trim().length > 0}
+          start={this.start}
+          stop={this.stop}
+          reset={this.reset}
+        />
+      </div>
+    );
+  }
 }
-// }
 
 RandomPicker.propTypes = {
   items: PropTypes.array,
   duration: PropTypes.number
 };
 
-// class RandomPickerChoice extends React.PureComponent {
-const RandomPickerChoice = () => {
-  // const { choice } = this.props;
+class RandomPickerChoice extends React.PureComponent {
+  render() {
+    const { choice } = this.props;
+    const content = choice.trim().length > 0 ? choice : '?';
 
-  const content = choice.trim().length > 0 ? choice : '?';
-
-  return (
-    <div className="RandomPicker__choice">
-      <span className="RandomPicker__choiceItem">{content}</span>
-    </div>
-  );
+    return (
+      <div className="RandomPicker__choice">
+        <span className="RandomPicker__choiceItem">{content}</span>
+      </div>
+    );
+  }
 }
 
 RandomPickerChoice.propTypes = {
@@ -121,13 +119,12 @@ class RandomPickerControls extends React.PureComponent {
   }
 }
 
-// RandomPickerControls.propTypes = {
-type RandomPickerControlsProps = {
-  isRunning: boolean,
-  hasChoice: boolean,
-  start: Function,
-  stop: Function,
-  reset: Function,
+RandomPickerControls.propTypes = {
+  isRunning: PropTypes.bool,
+  hasChoice: PropTypes.bool,
+  start: PropTypes.func,
+  stop: PropTypes.func,
+  reset: PropTypes.func,
 };
 
 const namesList = [
@@ -150,4 +147,7 @@ const namesList = [
   'Josephine',
 ];
 
-export default App;
+ReactDOM.render(
+  <RandomPicker items={namesList} />,
+  document.getElementById('random-picker')
+);
