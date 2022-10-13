@@ -4,13 +4,19 @@ const { useState } = React;
 
 function App() {
 
-  const [currentState, setCurrnetState] = useState<{
+  const [currentState, setState] = useState<{
     isRunning: boolean;
     currentChoice: string;
   }>({ isRunning: true, currentChoice: "" })
 
-  const interval = null;
-  const intervalDuration = 25;
+  type Interval = {
+    setChoice: void,
+    intervalDuration: number
+  }
+
+  // const [currentInterval, setInterval] = useState<Interval>({ setChoice: start(), intervalDuration: 25 })
+  // const interval = null;
+  // const intervalDuration = 25;
   const duration = 1000;
 
   // this.start = this.start.bind(this);
@@ -31,6 +37,7 @@ function App() {
     }, this.duration);
   }
 
+
   const stop = () => {
     clearInterval(this.interval);
     this.setState({ isRunning: false });
@@ -48,9 +55,10 @@ function App() {
   }
 
   const setChoice = () => {
-    this.setState({ currentChoice: this.pickChoice() })
+    setState({ currentChoice: pickChoice() })
   }
 
+  const [currentInterval, setInterval] = useState<Interval>({ setChoice: setChoice(), intervalDuration: 25 })
   // render() {
   const { isRunning, currentChoice } = this.state;
 
@@ -104,14 +112,14 @@ class RandomPickerControls extends React.PureComponent {
     return (
       <div className="RandomPicker__controls">
         <button
-          class={`RandomPicker__button ${isRunning && 'RandomPicker__button--stop'}`}
+          className={`RandomPicker__button ${isRunning && 'RandomPicker__button--stop'}`}
           onClick={isRunning ? stop : start}
         >
           {isRunning ? 'stop' : 'start'}
         </button>
         <button
           disabled={isRunning || !hasChoice}
-          class="RandomPicker__button RandomPicker__button--reset"
+          className="RandomPicker__button RandomPicker__button--reset"
           onClick={reset}
         >
           reset
