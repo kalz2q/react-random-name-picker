@@ -1,0 +1,17 @@
+import React from 'react';
+import './App.css';
+
+
+const FunctionalComponent = (props: { color: string }) => {
+  return <h1>Hello, {props.color}</h1>;
+}
+
+function App() {
+  return (
+    <div className="App">
+      <FunctionalComponent color="red" />
+    </div>
+  );
+}
+
+export default App;
