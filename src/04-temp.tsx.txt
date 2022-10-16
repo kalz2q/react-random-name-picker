@@ -11,6 +11,13 @@ function App() {
     currentChoice: namesList[Math.floor(Math.random() * namesList.length)]
   })
 
+  // let interval = 0;
+  const intervalDuration = 50;
+  // const duration = 1000;
+
+  const interval = setInterval(() => { setChoice(namesList) }, intervalDuration);
+  clearInterval(interval);
+
   const pickChoice = (namesList: string[]) => {
     const choice = namesList[Math.floor(Math.random() * namesList.length)];
     return choice;
@@ -19,14 +26,10 @@ function App() {
   const setChoice = (namesList: string[]) => {
     const tempCurrentState = currentState;
     tempCurrentState.currentChoice = pickChoice(namesList);
-    // console.log(tempCurrentState.currentChoice);
+    console.log(tempCurrentState.currentChoice);
     setState(tempCurrentState);
-    return
   }
 
-  setChoice(namesList)
-
-  requestAnimationFrame(() => setChoice(namesList));
 
   return (
     <div className="RandomPicker__choice">
