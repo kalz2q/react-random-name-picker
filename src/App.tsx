@@ -106,8 +106,8 @@ const RandomPickerControls = (props: { isRunning: boolean; hasChoice: boolean })
     <div className="RandomPicker__controls">
       <button
         className={`RandomPicker__button ${props.isRunning && 'RandomPicker__button--stop'}`}
-        // onClick={() => props.isRunning ? stop() : start()}
-        onClick={() => props.isRunning ? stop() : start()}
+      // onClick={() => props.isRunning ? stop() : start()}
+      // onClick={() => props.isRunning ? stop() : start()}
 
       >
         {props.isRunning ? 'stop' : 'start'}
