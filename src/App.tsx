@@ -29,7 +29,8 @@ function App() {
     if (((new Date().getTime()) % 10) === 0) { setCurrentChoice(namesList[Math.floor(Math.random() * namesList.length)]) };
   }
   // requestAnimationFrame(() => setTime(calcTime()));
-  requestAnimationFrame(() => doThis());
+  // requestAnimationFrame(() => doThis());
+  requestAnimationFrame(() => { setCurrentChoice(namesList[Math.floor(Math.random() * namesList.length)]) });
 
   return (
     <div className="App">
