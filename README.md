@@ -12,3 +12,6 @@ React random name picker component
 requestanimationframe
 React で requestAnimationFrame を扱う
 https://zenn.dev/yend724/articles/20211119-x1fph5dvdldsx4po
+
+cf. my timer start stop
+https://codepen.io/kalz2q/pen/xxjBLOX?editors=0010

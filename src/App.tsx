@@ -1,94 +1,14 @@
 import React from 'react';
 import './App.css';
 const { useState } = React;
+// next button で次を random に表示する
+
 
 function App() {
-  const [currentState, setState] = useState<{
-    isRunning: boolean;
-    currentChoice: string;
-  }>({
-    isRunning: true,
-    currentChoice: namesList[Math.floor(Math.random() * namesList.length)]
-  })
-  const [stoppedTime, setStoppedTime] = useState(0);
-  const [time, setTime] = useState(0);
-  const [lastStartedAt, setLastStartedAt] = useState(0);
-
-  const calcTime = () => {
-    return lastStartedAt === 0
-      ? stoppedTime
-      : stoppedTime + new Date().getTime() - lastStartedAt;
-  };
-
-  const timer = () => {
-    if (lastStartedAt === 0) {
-      setLastStartedAt(new Date().getTime());
-    } else {
-      setStoppedTime(calcTime());
-      setLastStartedAt(0);
-    }
-    return;
-  };
-
-  requestAnimationFrame(() => setTime(calcTime()));
-  requestAnimationFrame(() => setState(setChoice(namesList)));
-
-  const pickChoice = (namesList: string[]) => {
-    const choice = namesList[Math.floor(Math.random() * namesList.length)];
-    return choice;
-  }
-
-  const setChoice = (namesList: string[]) => {
-    const tempCurrentState = currentState;
-    tempCurrentState.currentChoice = pickChoice(namesList);
-    // console.log(tempCurrentState.currentChoice);
-    // setState(tempCurrentState);
-    return tempCurrentState;
-  }
-
 
   return (
     <div className="RandomPicker__choice">
-      <p>timer (ms): {time}</p>
-      <span className="RandomPicker__choiceItem">{currentState.currentChoice}</span>
-      <p>
-        <button onClick={() => timer()}>
-          {lastStartedAt === 0 ? "start" : "stop"}
-        </button>
-      </p>
-    </div>
-  );
-}
-
-
-const RandomPickerChoice = (props: { choice: string }) => {
-  const content = props.choice.trim().length > 0 ? props.choice : '?';
-
-  return (
-    <div className="RandomPicker__choice">
-      <span className="RandomPicker__choiceItem">{content}</span>
-    </div>
-  );
-}
-
-const RandomPickerControls = (props: { isRunning: boolean; hasChoice: boolean }) => {
-  return (
-    <div className="RandomPicker__controls">
-      <button
-        className={`RandomPicker__button ${props.isRunning && 'RandomPicker__button--stop'}`}
-      // onClick={() => props.isRunning ? stop() : start()}
-      // onClick={() => props.isRunning ? stop() : start()}
-
-      >
-        {props.isRunning ? 'stop' : 'start'}
-      </button>
-      <button
-        disabled={props.isRunning || !props.hasChoice}
-        className="RandomPicker__button RandomPicker__button--reset"
-      // onClick={reset}
-      >
-        reset
-      </button>
+      <span className="RandomPicker__choiceItem">{namesList[2]}</span>
     </div>
   );
 }
