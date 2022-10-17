@@ -25,7 +25,11 @@ function App() {
     return;
   };
 
-  requestAnimationFrame(() => setTime(calcTime()));
+  const doThis = () => {
+    if (((new Date().getTime()) % 10) === 0) { setCurrentChoice(namesList[Math.floor(Math.random() * namesList.length)]) };
+  }
+  // requestAnimationFrame(() => setTime(calcTime()));
+  requestAnimationFrame(() => doThis());
 
   return (
     <div className="App">
