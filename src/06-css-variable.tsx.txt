@@ -1,15 +1,17 @@
 import React from 'react';
 import './App.css';
-// react-random-name-picker
+// react-css-variable
+// setInterval, counter, random sort, start/stop, isRunning
+// camel names
+
+
 const { useState, useEffect } = React;
 
 function App() {
   const [counter, setCounter] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   colorlist.sort(() => Math.random() - 0.5);
-  namelist.sort(() => Math.random() - 0.5);
   const [bgcolor, setBGColor] = useState(colorlist[0]);
-  const [[name, expression], setName] = useState(namelist[0]);
   const delay: number = 2000;
 
   document.documentElement.style.setProperty("--background", bgcolor);
@@ -195,12 +197,5 @@ const colorlist = [
   "YellowGreen"
 ];
 
-const namelist = [
-  ["あいかみれ", "愛華みれ 宝塚"],
-  ["あいさかとうま", "逢坂冬馬 同志少女よ、敵を撃て"],
-  ["あいざわひとみ", "相澤仁美"],
-  ["あいざわりな", "逢沢りな"],
-  ["あいじまかずゆき", "相島一之"]
-];
 
 export default App;
