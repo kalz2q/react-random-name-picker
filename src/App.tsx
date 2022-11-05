@@ -38,6 +38,47 @@ function App() {
       >
         STOP
       </button>
+const { useState } = React;
+// next button で次を random に表示する
+
+function App() {
+  const [stoppedTime, setStoppedTime] = useState(0);
+  const [time, setTime] = useState(0);
+  const [lastStartedAt, setLastStartedAt] = useState(0);
+  const [currentChoice, setCurrentChoice] = useState(namesList[Math.floor(Math.random() * namesList.length)])
+
+  const calcTime = () => {
+    return lastStartedAt === 0
+      ? stoppedTime
+      : stoppedTime + new Date().getTime() - lastStartedAt;
+  };
+
+  const timer = () => {
+    if (lastStartedAt === 0) {
+      setLastStartedAt(new Date().getTime());
+    } else {
+      setStoppedTime(calcTime());
+      setLastStartedAt(0);
+    }
+    return;
+  };
+
+  const doThis = () => {
+    if (((new Date().getTime()) % 10) === 0) { setCurrentChoice(namesList[Math.floor(Math.random() * namesList.length)]) };
+  }
+  // requestAnimationFrame(() => setTime(calcTime()));
+  // requestAnimationFrame(() => doThis());
+  requestAnimationFrame(() => { setCurrentChoice(namesList[Math.floor(Math.random() * namesList.length)]) });
+
+  return (
+    <div className="App">
+      <span>{currentChoice}</span>
+      <p>timer (ms): {time}</p>
+      <p>
+        <button onClick={() => timer()}>
+          {lastStartedAt === 0 ? "start" : "stop"}
+        </button>
+      </p>
     </div>
   );
 }
