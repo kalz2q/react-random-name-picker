@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-
 // react-random-name-picker
 const { useState, useEffect } = React;
 
